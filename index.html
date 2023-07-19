@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+  </head>
+  <body>
+      <style>
+      body {
+        background: lightblue;
+      }
+    
+      * {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-ox-sizing: border-box;
+      }
+    
+      .warp {
+        width: 400px;
+        margin: auto;
+        height: auto;
+        background: lightgray;
+        padding: 15px;
+      }
+    
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: 20px;
+        border-radius: 5px;
+      }
+    
+      input[type="button"] {
+        width: 89px;
+        padding: 10px;
+        font-size: 22px;
+        font-weight: bold;
+        border-radius: 5px;
+      }
+    
+      /* Modified styles for the M-, %, ., +, -, * buttons */
+      input[value="M-"],
+      input[value="%"],
+      input[value="."],
+      input[value="+"],
+      input[value="AC"] {
+        background-color: orange;
+        color: white;
+      }
+    
+      input[value="-"],
+      input[value="x"] {
+        background-color: orange;
+        color: white;
+      }
+      
+      /* Modified styles for the 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, /, and = buttons */
+      input[value="9"],
+      input[value="8"],
+      input[value="7"],
+      input[value="6"],
+      input[value="5"],
+      input[value="4"],
+      input[value="3"],
+      input[value="2"],
+      input[value="1"],
+      input[value="0"],
+      input[value="/"],
+      input[value="="] {
+        background-color: gray;
+        color: white;
+      }
+      .round-photo-container {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+  
+      .round-photo {
+        width: 100%;
+        height: 100%;
+      }
+      .click-here-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+  
+      .click-here-button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+      <script>
+      // JavaScript Part
+        var memory = 0;
+  
+        function calculatePercentage() {
+        var display = document.forms["cal"]["display"];
+        var currentValue = display.value;
+  
+          if (!isValidNumber(currentValue)) {
+            display.value = "Invalid number";
+            return;
+          }
+  
+        try {
+          var result = eval(currentValue) / 100;
+            if (isNaN(result)) {
+              throw new Error("Invalid expression");
+            }
+            display.value = result;
+          } catch (error) {
+            display.value = "Error";
+          }
+        }
+  
+        function deleteLastCharacter() {
+          var display = document.forms["cal"]["display"];
+          var currentValue = display.value;
+          display.value = currentValue.slice(0, -1);
+        }
+  
+        function addToMemory() {
+          var display = document.forms["cal"]["display"];
+          var currentValue = display.value;
+  
+          if (!isValidNumber(currentValue)) {
+            display.value = "Invalid number";
+            return;
+          }
+  
+        var value = parseFloat(currentValue);
+          memory += value;
+          display.value = "";
+        }
+  
+        function subtractFromMemory() {
+          var display = document.forms["cal"]["display"];
+          var currentValue = display.value;
+  
+          if (!isValidNumber(currentValue)) {
+            display.value = "Invalid number";
+            return;
+          }
+  
+        var value = parseFloat(currentValue);
+          memory -= value;
+          display.value = "";
+        }
+  
+        function recallMemory() {
+          var display = document.forms["cal"]["display"];
+          display.value = memory;
+        }
+  
+        function isValidNumber(value) {
+          var pattern = /^(\d+(\.\d+)?([+\-*\/]\d+(\.\d+)?)*|\d+(\.\d+)?[+\-*\/]+)$/;
+          return pattern.test(value);
+        }
+        function disableRightClick(event) {
+          event.preventDefault();
+        }
+        function preventDefault(event) {
+          event.preventDefault();
+        }
+        // Disable F12 key
+        document.onkeydown = function(event) {
+            if (event.keyCode === 123) { // F12 key
+                event.preventDefault();
+                return false;
+            }
+        };
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', preventDefault);
+
+        // Disable Control + Shift + I
+        document.onkeydown = function(event) {
+          if (event.ctrlKey && event.shiftKey && event.keyCode === 73) {
+            preventDefault(event);
+          }
+        };
+      </script>
+  </head>
+  <body>
+    <div class ="warp">
+      <form name ="cal">
+        <input disabled type ="text" name ="display" placeholder="Put your number"/>
+        <br /><br />
+        <input type="button" value="AC" onclick="cal.display.value = ''" id="del">
+        <input type="button" value="M-" onclick="subtractFromMemory()">
+        <input type="button" value="%" onclick="calculatePercentage()">
+        <input type="button" value="." onclick="cal.display.value += '.'">
+        <br /><br />
+        <input type="button" value="9" onclick="cal.display.value += '9'">
+        <input type="button" value="8" onclick="cal.display.value += '8'">
+        <input type="button" value="7" onclick="cal.display.value += '7'">
+        <input type="button" value="+" class="orange" name="+" onclick="cal.display.value += '+'">
+        <br /><br />
+        <input type="button" value="6" onclick="cal.display.value += '6'">
+        <input type="button" value="5" onclick="cal.display.value += '5'">
+        <input type="button" value="4" onclick="cal.display.value += '4'">
+        <input type="button" value="-" onclick="cal.display.value += '-'">
+        <br /><br />
+        <input type="button" value="3" onclick="cal.display.value += '3'">
+        <input type="button" value="2" onclick="cal.display.value += '2'">
+        <input type="button" value="1" onclick="cal.display.value += '1'">
+        <input type="button" value="x" onclick="cal.display.value += '*'">
+        <br /><br />
+        <input type="button" value="/" onclick="cal.display.value += '/'">
+        <input type="button" value="0" onclick="cal.display.value += '0'">
+        <input type="button" value="=" onclick="cal.display.value = eval(cal.display.value)">
+        <input type="button" value="&#9003;" onclick="deleteLastCharacter()" id="del" class="delete-btn">
+        <br /><br />
+      </form>
+    </div>
+    <div class="round-photo-container">
+      <img class="round-photo" src="/image/binay.jpg" alt="Your Photo">
+    </div>
+    <h3 class="name">This WebPage Is Made By Binay Bhandari.</h3>
+    <p>To Get Code, <a href="https://github.com/Zipzope" target="_blank">Click here</a>.</p>
+    </div>
+</body>
+</html>
