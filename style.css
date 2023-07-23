@@ -65,16 +65,34 @@ input[value="="] {
   background-color: gray;
   color: white;
 }
+
 .round-photo-container {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  overflow: hidden;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .round-photo {
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+.name {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+a {
+  color: #2196F3;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 .click-here-button {
   display: inline-block;
@@ -87,16 +105,4 @@ input[value="="] {
 
 .click-here-button:hover {
   background-color: #0056b3;
-}
-  /* Custom CSS to style the Facebook logo */
-  .facebook-logo {
-  width:21px; /* Adjust the width as needed */
-  height:auto;
-  vertical-align:-3px;
-}
-/* Custom CSS to style the Instagram logo */
-  .instagram-logo {
-  width: 40px; /* Adjust the width as needed */
-  height: auto;
-  vertical-align: middle;
 }
