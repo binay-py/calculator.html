@@ -63,9 +63,6 @@ function isValidNumber(value) {
   var pattern = /^(\d+(\.\d+)?([+\-*\/]\d+(\.\d+)?)*|\d+(\.\d+)?[+\-*\/]+)$/;
   return pattern.test(value);
 }
-function disableRightClick(event) {
+document.addEventListener('contextmenu', function(event) {
   event.preventDefault();
-}
-function preventDefault(event) {
-  event.preventDefault();
-}
+});
